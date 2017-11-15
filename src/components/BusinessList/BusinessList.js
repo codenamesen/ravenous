@@ -22,3 +22,5 @@ class BusinessList extends React.component{
     );
   }
 }
+
+export default BusinessList;
