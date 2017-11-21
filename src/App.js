@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
-import './components/App/App.css';
-import SearchBar from './components/SearchBar/SearchBar.js';
-import BusinessList from './components/BusinessList/BusinessList.js';
-
-/*The purpose of the <Business /> component is to represent
-how a business (a restaurant) in Ravenous will be formatted and styled*/
-let business = {
-  imageSrc: 'https://s3.amazonaws.com/codecademy-content/programs/react/ravenous/pizza.jpg',
-  name: 'MarginOtto Pizzeria',
-  address: '1010 Paddington Way',
-  city: 'Flavortown',
-  state: 'NY',
-  zipCode: '10101',
-  category: 'Italian',
-  rating: 4.5,
-  reviewCount: 90
-};
-
-let businesses = [business, business, business, business, business, business];
-
+import logo from './logo.svg';
+import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>ravenous</h1>
-        <SearchBar />
-        <BusinessList businesses={businesses} />
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <p className="App-intro">
+          /*To get started, edit <code>src/App.js</code> and save to reload.*/
+          Hello Codecademy!
+        </p>
       </div>
     );
   }
