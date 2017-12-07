@@ -14,7 +14,7 @@ let accessToken;
 const Yelp = {};
 
 //Method used to get access token from Yelp API
-Yelp.getAccessToken = function() {
+Yelp.getAccessToken = () => {
   if (accessToken) {
     return new Promise(resolve => {
       resolve(accessToken)
@@ -23,22 +23,23 @@ Yelp.getAccessToken = function() {
   return fetch(`${corsAnywhere}${urlToYelp}&client_id=${clientId}&client_secret=${secret}`,
     {method: 'POST'}
   ).then(response => {
-    response.json()}
+    return response.json();}
   ).then(jsonResponse => {
-    accessToken = jsonResponse.access_token }
+    accessToken = jsonResponse.access_token; }
   );
 };
 
 //Method used to retreive search results from the Yelp API
-Yelp.search = function (term, location, sortBy) {
+Yelp.search = (term, location, sortBy) => {
   return Yelp.getAccessToken().then(() => {
-    return fetch(`${corsAnywhere}${urlToYelpBusinessSearch}?term${term}&location${location}&sort_by=${sortBy}`, {
+    return fetch(`${corsAnywhere}${urlToYelpBusinessSearch}?term=${term}&location=${location}&sort_by=${sortBy}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     });
   }).then(response => {
-    response.json()}
+    return response.json()}
   ).then(jsonResponse => {
     if(jsonResponse.businesses){
+      console.log(jsonResponse.businesses);
       return jsonResponse.businesses.map(business => (
         {
           id: business.id,
@@ -48,7 +49,7 @@ Yelp.search = function (term, location, sortBy) {
           city: business.location.city,
           state: business.location.state,
           zipCode: business.location.zip_code,
-          category: business.categories,
+          category: business.categories[0].title,
           rating: business.rating,
           reviewCount: business.review_count
         }
