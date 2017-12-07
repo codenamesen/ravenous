@@ -1,6 +1,6 @@
 //Stores the credentials provided by Yelp API
-const clientId = LiW90h8bxeIj7iY17VL9Zg;
-const secret = 19zyEKkRcYjGeO23h72VDVy9hBJFB5UR5kg8n3EaNqN8uYnXnwskxs4hzNNPcNYS;
+const clientId = 'LiW90h8bxeIj7iY17VL9Zg';
+const secret = '19zyEKkRcYjGeO23h72VDVy9hBJFB5UR5kg8n3EaNqN8uYnXnwskxs4hzNNPcNYS';
 
 //Stores Access Token to autheticate request using client ID and secret
 let accessToken;
