@@ -2,18 +2,19 @@
 const clientId = 'LiW90h8bxeIj7iY17VL9Zg';
 const secret = '19zyEKkRcYjGeO23h72VDVy9hBJFB5UR5kg8n3EaNqN8uYnXnwskxs4hzNNPcNYS';
 
+//Stores the common url required to query Yelp
+const urlToYelp = 'https://api.yelp.com/oauth2/token?grant_type=client_credentials';
+const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
+const urlToYelpBusinessSearch = 'https://api.yelp.com/v3/businesses/search';
+
 //Stores Access Token to autheticate request using client ID and secret
 let accessToken;
 
 //Object that stores the functionality needed to interact with Yelp API
-const Yelp = {
-  const urlToYelp = 'https://api.yelp.com/oauth2/token?grant_type=client_credentials';
-  const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
-  const urlToYelpBusinessSearch = 'https://api.yelp.com/v3/businesses/search';
-};
+const Yelp = {};
 
 //Method used to get access token from Yelp API
-Yelp.getAccessToken(){
+Yelp.getAccessToken = function() {
   if (accessToken) {
     return new Promise(resolve => {
       resolve(accessToken)
@@ -26,19 +27,19 @@ Yelp.getAccessToken(){
   ).then(jsonResponse => {
     accessToken = jsonResponse.access_token }
   );
-}
+};
 
 //Method used to retreive search results from the Yelp API
-Yelp.search(term, location, sortBy) {
+Yelp.search = function (term, location, sortBy) {
   return Yelp.getAccessToken().then(() => {
     return fetch(`${corsAnywhere}${urlToYelpBusinessSearch}?term${term}&location${location}&sort_by=${sortBy}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     });
-  }).then(respnse => {
+  }).then(response => {
     response.json()}
   ).then(jsonResponse => {
-    if(jsonResponse.businessess){
-      return jsonResponse.businessess.map(business => {
+    if(jsonResponse.businesses){
+      return jsonResponse.businesses.map(business => (
         {
           id: business.id,
           imageSrc: business.image_url,
@@ -51,9 +52,9 @@ Yelp.search(term, location, sortBy) {
           rating: business.rating,
           reviewCount: business.review_count
         }
-      });
+      ));
     }
   });
-}
+};
 
 export default Yelp;
