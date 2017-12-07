@@ -22,8 +22,8 @@ Yelp.getAccessToken = () => {
   }
   return fetch(`${corsAnywhere}${urlToYelp}&client_id=${clientId}&client_secret=${secret}`,
     {method: 'POST'}
-  ).then(response => {
-    return response.json();}
+  ).then(response =>
+    response.json()
   ).then(jsonResponse => {
     accessToken = jsonResponse.access_token; }
   );
@@ -35,11 +35,10 @@ Yelp.search = (term, location, sortBy) => {
     return fetch(`${corsAnywhere}${urlToYelpBusinessSearch}?term=${term}&location=${location}&sort_by=${sortBy}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     });
-  }).then(response => {
-    return response.json()}
+  }).then(response =>
+    response.json()
   ).then(jsonResponse => {
-    if(jsonResponse.businesses){
-      console.log(jsonResponse.businesses);
+    if(jsonResponse.businesses){      
       return jsonResponse.businesses.map(business => (
         {
           id: business.id,
